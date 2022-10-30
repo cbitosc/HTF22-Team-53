@@ -1,6 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const passport = require("passport");
+// var fileStore = require('session-file-store')(session);
+var session = require('express-session');
+// const authenticate = require('./authenticate')
 const app = express();
 const http = require("http");
 const cors = require("cors");
@@ -13,9 +16,40 @@ const server = http.createServer(app);
 const mongoose = require('mongoose')
 
 const ChatM = require('./models/chats')
-const chatRouter = require('./routes/chatRouter')
+const chatRouter = require('./routes/chatRouter');
+const userRouter = require("./routes/users");
 
 
+app.use(express.urlencoded({ extended: false }));
+// app.use(cookieParser('1234-5678-91011-1233'));
+app.use(session({
+        name:'session-id',
+        secret: "hehesemcret",
+        resave: true,
+        saveUninitialized: true,
+        Domain: 'localhost:3000'
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+
+function auth(req , res , next){
+    //console.log(req.session);
+    if(!req.user){ //!req.signedCookies.user for cookies , !req.session.user for session
+      var err= new Error("You are not authenticated!!")
+      err.status = 403;
+     return  next(err)
+    }
+    else{
+
+      next()
+   
+    }
+}
+
+app.use(auth);
+app.use('/users', userRouter); 
 
 const io = new Server(server, {
   cors: {

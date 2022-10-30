@@ -27,7 +27,7 @@ body {
   width: 210px;
   height: 40px;
   margin: 7px;
-  border: 2px solid #43a047;
+  border: 2px solid #e76006;
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
@@ -36,18 +36,20 @@ body {
 .joinChatContainer button {
   width: 225px;
   height: 50px;
-  margin: 7px;
+  margin: 2px;
+  margin-top: 10px;
   border: none;
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
-  background: #43a047;
+  background: #e76006;
   color: #fff;
   cursor: pointer;
 }
+/* #43a047; */
 
 .joinChatContainer button:hover {
-  background: #2e7d32;
+  background: #6633be;
 }
 
 .chat-window {
@@ -188,4 +190,8 @@ body {
 }
 .hide {
   opacity: 0 !important;
+}
+
+.dropdown{
+  margin-right: 75px;
 }
