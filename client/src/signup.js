@@ -16,13 +16,12 @@ function waste() {
 
 
     function respondSubmit(){
-        axios.post('http://localhost:5000/users/login',{name:username,password:password })
+        axios.post('http://localhost:5000/users/register',{name:username,password:password ,roll:roll , gradyear})
         .then((result) => {
         if(result.data.status)
         {
             console.log(result.data.message);
             console.log('heheheheh');
-
             navigate('/main')
             
         }

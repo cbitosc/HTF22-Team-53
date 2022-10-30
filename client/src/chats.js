@@ -89,7 +89,6 @@ function Chat({ socket, username, room }) {
             );
           })
           
-          
           }
         </ScrollToBottom>
       </div>

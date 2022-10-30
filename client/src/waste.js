@@ -26,7 +26,7 @@ function waste() {
         }
         else
         {
-            document.write('')
+            document.write('hello')
         }
         })
         .catch((err) => {

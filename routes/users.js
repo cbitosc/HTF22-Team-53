@@ -46,10 +46,10 @@ var passport = require('passport')
 //     catch{}
 // })
 userRouter.post('/register', async (req, res) => {
-    const { name, password } = req.body
+    const { name, password ,roll ,gradyear} = req.body
     console.log(name, password);
     try {
-        const response = await auth.findOne({ name: name, password: password })
+        const response = await User.findOne({ name: name, password: password })
         if (response) {
             res.send({ status: false, message: 'already account exist!' })
         }
@@ -59,7 +59,7 @@ userRouter.post('/register', async (req, res) => {
                 bcrypt.hash(password, saltRounds, async function (err, hash) {
                     // Store hash in your password DB.
                     try {
-                        const response = await auth.insertMany({ name: name, password: hash })
+                        const response = await User.insertMany({ name: name, password: hash ,roll:roll,gradyear:gradyear })
                         if (response) {
                             res.send({ status: true, message: 'inserted succesful' })
                         }
@@ -74,7 +74,7 @@ userRouter.post('/register', async (req, res) => {
                 });
 
             } catch (error) {
-                console.log(error);
+                console.log("hi" ,error);
             }
 
 
@@ -89,7 +89,7 @@ userRouter.post('/register', async (req, res) => {
 userRouter.post('/login', async (req, res) => {
     const { name, password } = req.body
 
-    const response = await auth.findOne({ name: name })
+    const response = await User.findOne({ name: name })
     if (response) {
         bcrypt.compare(password, response.password, function (err, result) {
             // result == true
@@ -117,7 +117,7 @@ userRouter.post('/login', async (req, res) => {
 
 })
 
-app.post('/logout',(req,res)=>
+userRouter.post('/logout',(req,res)=>
 { if(req.session.admin)
     {
         req.session.admin=false
